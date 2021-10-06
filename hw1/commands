@@ -1,0 +1,52 @@
+docker exec -it namenode /bin/bash
+
+Блок 1
+
+1. hdfs dfs -mkdir /dune2000
+2. hdfs dfs -mkdir /dune2000/dune2001
+3. При удалении данных они перемещаются в директорию .Trash, а уже после истечения определенного времени, происходит его физическое удаление. Как я понял можно удалить папку Trash, либо запускать с "-skipTrash"
+4. hdfs dfs -touchz /duna2000/duna2001/zdarova.txt
+5. hdfs dfs -rm /dune2000/dune2001/zdarova.txt
+6. hdfs dfs -rmr /dune2000
+
+См. флаги “-put”, “-cat”, “-tail”, “-cp”
+1. hdfs dfs -put dune /
+2. hdfs dfs -cat /dune
+3. hdfs dfs -tail /dune
+4. hdfs dfs -head /dune
+5. hdfs dfs -mkdir /new_folder -> hdfs dfs -cp /dune /new_folder
+
+
+Блок 2
+
+2. hdfs dfs -setrep 2 /dune
+Время уменьшения/увеличения было больше 10 мин, перестал ждать
+
+3. hdfs fsck /dune -files -blocks -locations
+
+4. hdfs fsck /dune -blockId blk_1073741843
+Не понятно, не выводит GS number
+
+
+Блок 3
+Я пытался, но мне выдавало ошибку
+
+docker exec -it namenode /bin/bash - заходим в докер
+
+apt-get update && apt-get install python3 - уст. питон
+
+hdfs dfs -put price.csv mapper_mean.py mapper_var.py reducer_mean.py reducer_var.py / - кладем на неймноду файлы
+
+
+2 стратегии запуска:
+
+    а) mapred streaming \
+         -files mapper_mean.py,reducer_mean.py,price.csv \
+         -mapper "python3 mapper.py" \
+         -reducer "python3 reducer.py" \
+         -input /price.csv \
+         -output output 
+
+    б) hadoop jar /opt/hadoop-3.2.1/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar -files mapper_mean.py,reducer_mean.py -mapper mapper_mean.py -reducer reducer_mean.py -input /price.csv -output /output && hdfs dfs -cat /output/*
+
+Обе приводят к ошибкам в файле errors.png
