@@ -41,11 +41,11 @@ hdfs dfs -put price.csv mapper_mean.py mapper_var.py reducer_mean.py reducer_var
 2 стратегии запуска:
 
     а) mapred streaming \
-         -files mapper_mean.py,reducer_mean.py,price.csv \
-         -mapper "python3 mapper.py" \
-         -reducer "python3 reducer.py" \
+         -files mapper_mean.py,reducer_mean.py,AB_NYC_2019.csv \
+         -mapper "python mapper_mean.py" \
+         -reducer "python reducer_mean.py" \
          -input /price.csv \
-         -output output 
+         -output output
 
     б) hadoop jar /opt/hadoop-3.2.1/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar -files mapper_mean.py,reducer_mean.py -mapper mapper_mean.py -reducer reducer_mean.py -input /price.csv -output /output && hdfs dfs -cat /output/*
 
