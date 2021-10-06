@@ -41,7 +41,7 @@ hdfs dfs -put price.csv mapper_mean.py mapper_var.py reducer_mean.py reducer_var
 2 стратегии запуска:
 
     а) mapred streaming \
-         -files mapper_mean.py,reducer_mean.py,AB_NYC_2019.csv \
+         -files mapper_mean.py,reducer_mean.py,price.csv \
          -mapper "python mapper_mean.py" \
          -reducer "python reducer_mean.py" \
          -input /price.csv \
