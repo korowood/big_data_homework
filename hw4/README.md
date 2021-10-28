@@ -1,4 +1,4 @@
-По данным Trip advisor hotel.[https://www.kaggle.com/andrewmvd/trip-advisor-hotel-reviews] reviews посчитать Tf-Idf с помощью Spark DataFrame / Dataset API без использования Spark ML
+По данным Trip advisor hotel(https://www.kaggle.com/andrewmvd/trip-advisor-hotel-reviews) посчитать Tf-Idf с помощью Spark DataFrame / Dataset API без использования Spark ML
 Этапы
 • Привести все к одному регистру
 • Удалить все спецсимволы
